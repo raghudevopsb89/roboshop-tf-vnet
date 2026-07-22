@@ -39,7 +39,7 @@ resource "azurerm_linux_virtual_machine" "main" {
 resource "azurerm_dns_a_record" "main" {
   name                = "${var.component_name}-${var.env}"
   zone_name           = "rdevopsb89.online"
-  resource_group_name = data.azurerm_resource_group.main.name
+  resource_group_name = data.azurerm_resource_group.default.name
   ttl                 = 30
   records             = [azurerm_network_interface.main[0].private_ip_address]
 }
