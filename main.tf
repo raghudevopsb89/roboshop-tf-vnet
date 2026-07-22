@@ -19,5 +19,18 @@ resource "azurerm_subnet" "main" {
 }
 
 
+module "db" {
+  source = "./modules/vm"
+
+  for_each       = var.vms
+  component_name = each.key
+  vm_size        = try(each.value["vm_size"], "Standard_B1s")
+
+  rgname    = azurerm_resource_group.main.name
+  image_id  = var.image_id
+  env       = var.env
+  subnet_id = azurerm_subnet.main["db"].id
+  vm_count  = 1
+}
 
 
