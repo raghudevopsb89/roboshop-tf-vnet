@@ -3,7 +3,7 @@ resource "null_resource" "kube-config" {
   depends_on = [azurerm_kubernetes_cluster_node_pool.pool1]
 
   provisioner "local-exec" {
-    command = "az aks get-credentials --resource-group denmark-east-rg --name roboshop-${var.env} --overwrite-existing"
+    command = "az aks get-credentials --resource-group ${var.rg_name} --name roboshop-${var.env} --overwrite-existing"
   }
 }
 
