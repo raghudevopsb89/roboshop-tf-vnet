@@ -18,6 +18,19 @@ resource "azurerm_subnet" "main" {
   address_prefixes     = [each.value]
 }
 
+resource "azurerm_virtual_network_peering" "default-to-new" {
+  name                      = "default2dev"
+  resource_group_name       = "denmark-east-rg"
+  virtual_network_name      = "workstation-vnet"
+  remote_virtual_network_id = azurerm_virtual_network.main.id
+}
+
+resource "azurerm_virtual_network_peering" "dev-to-default" {
+  name                      = "dev2default"
+  resource_group_name       = azurerm_resource_group.main.name
+  virtual_network_name      = azurerm_virtual_network.main.name
+  remote_virtual_network_id = "/subscriptions/3f2e42e1-ca06-4a99-8c56-be8d8ba306db/resourceGroups/denmark-east-rg/providers/Microsoft.Network/virtualNetworks/workstation-vnet"
+}
 
 module "db" {
   source = "./modules/vm"
