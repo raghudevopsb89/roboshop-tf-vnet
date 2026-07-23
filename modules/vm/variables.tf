@@ -12,4 +12,6 @@ variable "vm_count" {}
 variable "subnet_id" {}
 variable "vm_size" {}
 variable "rgid" {}
+variable "rgloc" {}
+
 

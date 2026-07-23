@@ -28,6 +28,7 @@ module "db" {
 
   rgname    = azurerm_resource_group.main.name
   rgid      = azurerm_resource_group.main.id
+  rgloc     = azurerm_resource_group.main.location
   image_id  = var.image_id
   env       = var.env
   subnet_id = azurerm_subnet.main["db"].id

@@ -1,8 +1,8 @@
 resource "azurerm_network_interface" "main" {
   count               = var.vm_count
   name                = "${var.component_name}-${var.env}-nic${count.index}"
-  location            = data.azurerm_resource_group.main.location
-  resource_group_name = data.azurerm_resource_group.main.name
+  location            = var.rgloc
+  resource_group_name = var.rgname
 
   ip_configuration {
     name                          = "${var.component_name}-${var.env}-nic${count.index}"
@@ -14,8 +14,8 @@ resource "azurerm_network_interface" "main" {
 resource "azurerm_linux_virtual_machine" "main" {
   count                           = var.vm_count
   name                            = "${var.component_name}-${var.env}-${count.index}"
-  location                        = data.azurerm_resource_group.main.location
-  resource_group_name             = data.azurerm_resource_group.main.name
+  location                        = var.rgloc
+  resource_group_name             = var.rgid
   network_interface_ids           = [azurerm_network_interface.main[count.index].id]
   size                            = var.vm_size
   admin_password                  = data.azurerm_key_vault_secret.ssh_password.value
