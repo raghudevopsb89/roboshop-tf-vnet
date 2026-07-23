@@ -1,7 +1,3 @@
-data "azurerm_resource_group" "main" {
-  name = var.rgname
-}
-
 data "azurerm_resource_group" "default" {
   name = "denmark-east-rg"
 }

@@ -27,6 +27,7 @@ module "db" {
   vm_size        = try(each.value["vm_size"], "Standard_B1s")
 
   rgname    = azurerm_resource_group.main.name
+  rgid      = azurerm_resource_group.main.id
   image_id  = var.image_id
   env       = var.env
   subnet_id = azurerm_subnet.main["db"].id
