@@ -7,13 +7,13 @@ subnets = {
 }
 
 vms = {
-  # mysql = {
-  #   vm_size = "Standard_B1ms"
-  # }
-  # valkey = {}
-  # mongodb = {
-  #   vm_size = "Standard_B1ms"
-  # }
+  mysql = {
+    vm_size = "Standard_B1ms"
+  }
+  valkey = {}
+  mongodb = {
+    vm_size = "Standard_B1ms"
+  }
   rabbitmq = {}
 }
 
