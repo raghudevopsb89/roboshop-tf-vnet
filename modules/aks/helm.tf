@@ -188,7 +188,7 @@ resource "null_resource" "external-dns-secret" {
 echo '{
   "tenantId": "229f3fa3-57f3-4e2c-852f-24b7bf512640",
   "subscriptionId": "3f2e42e1-ca06-4a99-8c56-be8d8ba306db",
-  "resourceGroup": "${var.rg_name}",
+  "resourceGroup": "${var.default_rg_name}",
   "aadClientId": "${data.azurerm_key_vault_secret.ClientID.value}",
   "aadClientSecret": "${data.azurerm_key_vault_secret.ClientPassword.value}"
 }' >/tmp/azure.json
