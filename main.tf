@@ -32,33 +32,6 @@ resource "azurerm_virtual_network_peering" "dev-to-default" {
   remote_virtual_network_id = "/subscriptions/3f2e42e1-ca06-4a99-8c56-be8d8ba306db/resourceGroups/denmark-east-rg/providers/Microsoft.Network/virtualNetworks/workstation-vnet"
 }
 
-# resource "azurerm_public_ip" "nat" {
-#   name                = "${var.env}-nat-pip"
-#   location            = azurerm_resource_group.main.location
-#   resource_group_name = azurerm_resource_group.main.name
-#   allocation_method   = "Static"
-#   sku                 = "Standard"
-# }
-#
-# resource "azurerm_nat_gateway" "main" {
-#   name                = "${var.env}-nat"
-#   location            = azurerm_resource_group.main.location
-#   resource_group_name = azurerm_resource_group.main.name
-#   sku_name            = "Standard"
-# }
-#
-# resource "azurerm_nat_gateway_public_ip_association" "main" {
-#   nat_gateway_id       = azurerm_nat_gateway.main.id
-#   public_ip_address_id = azurerm_public_ip.nat.id
-# }
-#
-# # Associate NAT gateway to the subnet(s) that need internet
-# resource "azurerm_subnet_nat_gateway_association" "main" {
-#   for_each       = azurerm_subnet.main
-#   subnet_id      = each.value.id
-#   nat_gateway_id = azurerm_nat_gateway.main.id
-# }
-
 module "db" {
   source = "./modules/vm"
 
