@@ -348,7 +348,7 @@ spec:
     solvers:
     - http01:
         ingress:
-          class: nginx
+          class: traefik
 EOF
 kubectl apply -f ${path.module}/issuer.yml
 EOT
