@@ -310,7 +310,7 @@ resource "helm_release" "external_secrets" {
 }
 
 
-resource "helm_release" "external_secrets" {
+resource "helm_release" "cert-manager" {
 
   depends_on = [null_resource.external-secret]
 
