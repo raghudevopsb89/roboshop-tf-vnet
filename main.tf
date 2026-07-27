@@ -52,7 +52,7 @@ module "db" {
 module "aks" {
   source          = "./modules/aks"
   env             = var.env
-  subnet_id       = azurerm_subnet.main["db"].id
+  subnet_id       = azurerm_subnet.main["app"].id
   default_rg_name = var.default_rg_name
 
   rg_name     = azurerm_resource_group.main.name
