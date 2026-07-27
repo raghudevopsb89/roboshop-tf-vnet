@@ -1,10 +1,9 @@
 resource "azurerm_kubernetes_cluster" "main" {
-  name                 = "roboshop-${var.env}"
-  location             = var.rg_location
-  resource_group_name  = var.rg_name
-  dns_prefix           = "roboshop-${var.env}"
-  kubernetes_version   = "1.35.4"
-  azure_policy_enabled = true
+  name                = "roboshop-${var.env}"
+  location            = var.rg_location
+  resource_group_name = var.rg_name
+  dns_prefix          = "roboshop-${var.env}"
+  kubernetes_version  = "1.35.4"
 
   default_node_pool {
     name           = "default"
