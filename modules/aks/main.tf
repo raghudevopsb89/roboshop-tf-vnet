@@ -25,7 +25,7 @@ resource "azurerm_kubernetes_cluster" "main" {
     ignore_changes = [default_node_pool]
   }
 
-  service_mesh_profile = {
+  service_mesh_profile {
     mode = "Istio"
   }
 
