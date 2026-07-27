@@ -310,3 +310,21 @@ resource "helm_release" "external_secrets" {
 }
 
 
+resource "helm_release" "external_secrets" {
+
+  depends_on = [null_resource.external-secret]
+
+  chart      = "cert-manager"
+  name       = "cert-manager"
+  repository = "oci://quay.io/jetstack/charts/cert-manager"
+
+  set = [
+    {
+      name  = "crds.enabled"
+      value = "true"
+    }
+  ]
+}
+
+
+
