@@ -316,7 +316,7 @@ resource "helm_release" "cert-manager" {
 
   chart      = "cert-manager"
   name       = "cert-manager"
-  repository = "oci://quay.io/jetstack/charts/cert-manager"
+  repository = "oci://quay.io/jetstack/charts"
 
   set = [
     {
