@@ -340,4 +340,64 @@ EOF
   }
 }
 
+## ISTIO
+resource "helm_release" "istio-base" {
+  depends_on = [
+    null_resource.kube-config
+  ]
+
+  name             = "istio-base"
+  repository       = "https://istio-release.storage.googleapis.com/charts"
+  chart            = "base"
+  namespace        = "istio-system"
+  create_namespace = true
+}
+
+
+resource "helm_release" "istiod" {
+  depends_on = [
+    null_resource.kube-config,
+    helm_release.istio-base
+  ]
+
+  name             = "istiod"
+  repository       = "https://istio-release.storage.googleapis.com/charts"
+  chart            = "istiod"
+  namespace        = "istio-system"
+  create_namespace = true
+}
+
+resource "null_resource" "kiali" {
+  depends_on = [
+    null_resource.kube-config,
+    helm_release.istiod
+  ]
+  provisioner "local-exec" {
+    command = <<EOF
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.26/samples/addons/kiali.yaml
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.26/samples/addons/prometheus.yaml
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.26/samples/addons/grafana.yaml
+kubectl apply -f - <<EOK
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: kiali-dev.rdevopsb89.online
+    http:
+      paths:
+      - backend:
+          service:
+            name: kiali
+            port:
+              number: 20001
+        path: /kiali
+        pathType: Prefix
+EOK
+EOF
+  }
+}
 
