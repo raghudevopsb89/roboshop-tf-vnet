@@ -401,3 +401,15 @@ EOF
   }
 }
 
+resource "null_resource" "roboshop-ns" {
+  depends_on = [
+    null_resource.kube-config,
+  ]
+  provisioner "local-exec" {
+    command = <<EOF
+kubectl create namespace roboshop
+kubectl label namespace roboshop istio-injection=enabled
+EOF
+  }
+}
+
