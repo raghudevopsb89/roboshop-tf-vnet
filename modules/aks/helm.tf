@@ -404,3 +404,32 @@ EOF
 
 
 
+resource "helm_release" "argocd" {
+
+  depends_on = [null_resource.kube-config, helm_release.traefik_ingress]
+
+  name       = "argocd"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argo-cd"
+
+  set = [
+    {
+      name  = "server.ingress.enabled"
+      value = true
+    },
+    {
+      name  = "server.ingress.ingressClassName"
+      value = "traefik"
+    },
+    {
+      name  = "global.domain"
+      value = "argocd-${var.env}.rdevopsb89.online"
+    },
+    {
+      name  = "configs.params.server\\.insecure"
+      value = true
+    }
+  ]
+}
+
+
